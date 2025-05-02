@@ -62,7 +62,7 @@ export default function Map() {
         select(ref.current as Element).call(
             drag().on('drag', (event) => {
                 const rotation = projection.rotate()
-                projection.rotate([rotation[0] + event.dx / 2, rotation[1] - event.dy / 2, 0])
+                projection.rotate([rotation[0] + event.dx / 6, Math.max(-40, Math.min(40, rotation[1] - event.dy / 6)), 0])
                 render()
             })
         )
