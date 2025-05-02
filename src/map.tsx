@@ -75,7 +75,20 @@ export default function Map() {
             })
         )
 
+        function onWheel(event: WheelEvent) {
+            event.preventDefault()
+            let scale = projection.scale()
+            scale += event.deltaY * 0.4
+            projection.scale(Math.max(476, Math.min(840, scale)))
+            render()
+        }
+
         render()
+
+        window.addEventListener('wheel', onWheel, { passive: false })
+        return () => {
+            window.removeEventListener('wheel', onWheel)
+        }
     }, [features])
 
     return <svg className="size-full" ref={ref} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} />
