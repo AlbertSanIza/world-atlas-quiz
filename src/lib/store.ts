@@ -26,7 +26,7 @@ export const useGameStore = create<{
     elapsedTime: 0,
     countries: [],
     startGame: () => {
-        set({ started: true, finished: false, current: getRandomCountry(countries), answered: {}, elapsedTime: 0 })
+        set({ started: true, finished: false, current: getRandomCountry(get().countries), answered: {}, elapsedTime: 0 })
     },
     resetGame: () => {
         set({ started: false, finished: false, current: null, answered: {}, elapsedTime: 0 })
@@ -38,7 +38,7 @@ export const useGameStore = create<{
         }
         let newAnswered = { ...answered }
         newAnswered[current] = country === current ? 'correct' : 'incorrect'
-        const remaining = countries.filter((c) => !newAnswered[c])
+        const remaining = get().countries.filter((c) => !newAnswered[c])
         set({ answered: newAnswered, current: remaining.length > 0 ? getRandomCountry(remaining) : null, finished: remaining.length === 0 })
     },
     updateElapsedTime: (time: number) => {
