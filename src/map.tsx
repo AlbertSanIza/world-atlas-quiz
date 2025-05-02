@@ -59,7 +59,7 @@ export default function Map() {
                 .attr('stroke-width', 1)
         }
 
-        select(ref.current).call(
+        select(ref.current as Element).call(
             drag().on('drag', (event) => {
                 const rotation = projection.rotate()
                 projection.rotate([rotation[0] + event.dx / 2, rotation[1] - event.dy / 2, 0])
