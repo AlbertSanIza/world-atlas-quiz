@@ -8,7 +8,6 @@ import { useGameStore } from './lib/store'
 
 const WIDTH = 1000
 const HEIGHT = 1000
-const INSET = 4
 
 export default function Map() {
     const ref = useRef<SVGSVGElement>(null)
@@ -31,8 +30,8 @@ export default function Map() {
         }
         const projection = geoOrthographic().fitExtent(
             [
-                [INSET, INSET],
-                [WIDTH - INSET, HEIGHT - INSET]
+                [0, 0],
+                [WIDTH, HEIGHT]
             ],
             { type: 'Sphere' }
         )
@@ -44,6 +43,13 @@ export default function Map() {
             }
             const svg = select(ref.current)
             svg.selectAll('*').remove()
+            svg.append('circle')
+                .attr('cx', WIDTH / 2)
+                .attr('cy', HEIGHT / 2)
+                .attr('r', projection.scale() + 1)
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 2)
             svg.append('circle')
                 .attr('cx', WIDTH / 2)
                 .attr('cy', HEIGHT / 2)
@@ -62,7 +68,7 @@ export default function Map() {
         select(ref.current as Element).call(
             drag().on('drag', (event) => {
                 const rotation = projection.rotate()
-                projection.rotate([rotation[0] + event.dx / 6, Math.max(-40, Math.min(40, rotation[1] - event.dy / 6)), 0])
+                projection.rotate([rotation[0] + event.dx / 6, Math.max(-50, Math.min(50, rotation[1] - event.dy / 6)), 0])
                 render()
             })
         )
