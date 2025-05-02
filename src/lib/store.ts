@@ -17,6 +17,7 @@ export const useGameStore = create<{
     resetGame: () => void
     answer: (country: string) => void
     updateElapsedTime: (time: number) => void
+    updateCountries: (countries: string[]) => void
 }>((set, get) => ({
     started: false,
     finished: false,
@@ -42,5 +43,8 @@ export const useGameStore = create<{
     },
     updateElapsedTime: (time: number) => {
         set({ elapsedTime: time })
+    },
+    updateCountries: (countries: string[]) => {
+        set({ countries })
     }
 }))
