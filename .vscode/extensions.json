@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "bradlc.vscode-tailwindcss",
+        "ChakrounAnas.turbo-console-log",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "GitHub.copilot",
+        "github.vscode-github-actions",
+        "PKief.material-icon-theme",
+        "streetsidesoftware.code-spell-checker",
+        "yoavbls.pretty-ts-errors"
+    ]
+}
