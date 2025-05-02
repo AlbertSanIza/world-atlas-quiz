@@ -1,4 +1,4 @@
-import { geoOrthographic, geoPath, select } from 'd3'
+import { drag, geoOrthographic, geoPath, select } from 'd3'
 import { Feature, GeoJsonProperties } from 'geojson'
 import { useEffect, useRef, useState } from 'react'
 import { feature } from 'topojson-client'
@@ -26,7 +26,7 @@ export default function Map() {
     }, [])
 
     useEffect(() => {
-        if (!features) {
+        if (!ref.current || !features) {
             return
         }
         const projection = geoOrthographic().fitExtent(
@@ -58,6 +58,14 @@ export default function Map() {
                 .attr('stroke', 'black')
                 .attr('stroke-width', 1)
         }
+
+        select(ref.current).call(
+            drag().on('drag', (event) => {
+                const rotation = projection.rotate()
+                projection.rotate([rotation[0] + event.dx / 2, rotation[1] - event.dy / 2, 0])
+                render()
+            })
+        )
 
         render()
     }, [features])
