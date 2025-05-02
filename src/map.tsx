@@ -8,6 +8,7 @@ import { useGameStore } from './lib/store'
 
 const WIDTH = 1000
 const HEIGHT = 1000
+const INSET = 24
 
 export default function Map() {
     const ref = useRef<SVGSVGElement>(null)
@@ -30,11 +31,12 @@ export default function Map() {
         }
         const projection = geoOrthographic().fitExtent(
             [
-                [0, 0],
-                [WIDTH, HEIGHT]
+                [INSET, INSET],
+                [WIDTH - INSET, HEIGHT - INSET]
             ],
             { type: 'Sphere' }
         )
+        projection.scale(476)
         const path = geoPath(projection)
 
         function render() {
