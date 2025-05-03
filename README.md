@@ -9,3 +9,6 @@ https://albertsaniza.github.io/world-atlas-quiz
 ## Core Technologies
 
 - Vite
+- Tailwind
+- d3
+- Zustand
