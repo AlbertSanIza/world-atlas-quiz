@@ -41,8 +41,6 @@ export default function Map() {
         projectionRef.current.scale(476)
         pathRef.current = geoPath(projectionRef.current)
 
-        render()
-
         select(ref.current as Element).call(
             drag().on('drag', (event) => {
                 const rotation = projectionRef.current?.rotate() || [0, 0, 0]
