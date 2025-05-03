@@ -28,14 +28,14 @@ export default function App() {
                 <div className="pointer-events-auto">
                     {!started ? (
                         <button
-                            className="flex h-10 w-18 items-center justify-center rounded-lg bg-black text-white hover:cursor-pointer hover:opacity-80"
+                            className="flex h-10 w-18 items-center justify-center rounded-lg bg-sky-950 text-white hover:cursor-pointer hover:opacity-80"
                             onClick={startGame}
                         >
                             Start
                         </button>
                     ) : (
                         <button
-                            className="flex h-10 w-18 items-center justify-center rounded-lg border-2 hover:cursor-pointer hover:underline hover:opacity-80"
+                            className="flex h-10 w-18 items-center justify-center rounded-lg border-2 border-sky-900 text-white hover:cursor-pointer hover:underline hover:opacity-80"
                             onClick={resetGame}
                         >
                             Reset
