@@ -11,13 +11,11 @@ export default function App() {
             <div id="stars"></div>
             <div className="pointer-events-none absolute top-0 flex w-full justify-between px-6 pt-6">
                 <div>
-                    <h1
-                        className={`w-fit ${started && !finished ? 'rounded-t-xl' : 'rounded-xl'} bg-black/10 px-2 py-1 text-6xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg`}
-                    >
+                    <h1 className="w-fit rounded-xl bg-black/10 px-2 py-1 text-6xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg">
                         World Atlas
                     </h1>
                     {started && !finished && (
-                        <div className="rounded-r-xl rounded-b-xl bg-black/20 px-2 py-0 font-mono text-lg font-semibold text-white backdrop-blur-sm text-shadow-lg">
+                        <div className="mt-2 rounded-r-xl rounded-b-xl bg-black/10 px-2 py-0 font-mono text-lg font-semibold text-white backdrop-blur-sm text-shadow-lg">
                             Found: {answeredCount < 10 && <span className="opacity-0">0</span>}
                             {Object.values(answered).filter((value) => value === 'correct').length}/{countries.length}, Remaining:{' '}
                             {countries.length - answeredCount < 10 && <span className="opacity-0">0</span>}
@@ -43,6 +41,13 @@ export default function App() {
                     )}
                 </div>
             </div>
+            {started && !finished && current && (
+                <div className="pointer-events-none absolute bottom-0 flex w-full justify-center pb-6">
+                    <div className="rounded-lg bg-black/20 px-2 pb-1 text-2xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg">
+                        Find: <span className="text-4xl underline">{current}</span>
+                    </div>
+                </div>
+            )}
             <Map />
         </main>
     )
