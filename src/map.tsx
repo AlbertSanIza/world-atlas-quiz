@@ -38,50 +38,24 @@ export default function Map() {
             ],
             { type: 'Sphere' }
         )
-        projection.scale(476)
-        const path = geoPath(projection)
+        projectionRef.current.scale(476)
+        pathRef.current = geoPath(projectionRef.current)
 
-        function render() {
-            if (!features) {
-                return
-            }
-            const svg = select(ref.current)
-            svg.selectAll('*').remove()
-            svg.append('circle')
-                .attr('cx', WIDTH / 2)
-                .attr('cy', HEIGHT / 2)
-                .attr('r', projection.scale() + 1)
-                .attr('fill', 'none')
-                .attr('stroke', 'black')
-                .attr('stroke-width', 2)
-            svg.append('circle')
-                .attr('cx', WIDTH / 2)
-                .attr('cy', HEIGHT / 2)
-                .attr('r', projection.scale())
-                .attr('fill', '#98DCFF')
-            svg.append('g')
-                .selectAll('path')
-                .data(features)
-                .join('path')
-                .attr('d', path)
-                .attr('fill', '#BEE7B6')
-                .attr('stroke', 'black')
-                .attr('stroke-width', 1)
-        }
+        render()
 
         select(ref.current as Element).call(
             drag().on('drag', (event) => {
-                const rotation = projection.rotate()
-                projection.rotate([rotation[0] + event.dx / 6, Math.max(-50, Math.min(50, rotation[1] - event.dy / 6)), 0])
+                const rotation = projectionRef.current?.rotate() || [0, 0, 0]
+                projectionRef.current?.rotate([rotation[0] + event.dx / 6, Math.max(-50, Math.min(50, rotation[1] - event.dy / 6)), 0])
                 render()
             })
         )
 
         function onWheel(event: WheelEvent) {
             event.preventDefault()
-            let scale = projection.scale()
+            let scale = projectionRef.current?.scale() || 476
             scale += event.deltaY * 0.4
-            projection.scale(Math.max(476, Math.min(840, scale)))
+            projectionRef.current?.scale(Math.max(476, Math.min(840, scale)))
             render()
         }
 
@@ -92,6 +66,34 @@ export default function Map() {
             window.removeEventListener('wheel', onWheel)
         }
     }, [features])
+
+    function render() {
+        if (!ref.current || !projectionRef.current || !pathRef.current || !features) {
+            return
+        }
+        const svg = select(ref.current)
+        svg.selectAll('*').remove()
+        svg.append('circle')
+            .attr('cx', WIDTH / 2)
+            .attr('cy', HEIGHT / 2)
+            .attr('r', projectionRef.current.scale() + 1)
+            .attr('fill', 'none')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 2)
+        svg.append('circle')
+            .attr('cx', WIDTH / 2)
+            .attr('cy', HEIGHT / 2)
+            .attr('r', projectionRef.current.scale())
+            .attr('fill', '#98DCFF')
+        svg.append('g')
+            .selectAll('path')
+            .data(features)
+            .join('path')
+            .attr('d', pathRef.current)
+            .attr('fill', '#BEE7B6')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1)
+    }
 
     return <svg className="size-full" ref={ref} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} />
 }
