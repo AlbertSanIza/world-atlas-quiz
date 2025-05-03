@@ -114,6 +114,16 @@ export default function Map() {
                     !useGameStore.getState().answered[data.properties?.name] &&
                     useGameStore.getState().answer(data.properties?.name)
             })
+            .on('mouseover', function (_, data) {
+                if (useGameStore.getState().started && !useGameStore.getState().finished && !useGameStore.getState().answered[data.properties?.name]) {
+                    select(this).attr('fill', 'oklch(86.9% 0.005 56.366)')
+                }
+            })
+            .on('mouseout', function (_, data) {
+                if (useGameStore.getState().started && !useGameStore.getState().finished && !useGameStore.getState().answered[data.properties?.name]) {
+                    select(this).attr('fill', 'white')
+                }
+            })
     }
 
     return <svg className="size-full" ref={ref} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} />
