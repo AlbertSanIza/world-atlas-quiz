@@ -9,10 +9,10 @@ export default function App() {
     return (
         <main className="fixed inset-0 bg-radial from-slate-700 from-40% to-slate-950">
             <div id="stars"></div>
-            <div className="pointer-events-none absolute top-0 flex w-full items-center justify-between px-6 pt-6">
+            <div className="pointer-events-none absolute top-0 flex w-full justify-between px-6 pt-6">
                 <div>
                     <h1
-                        className={`w-fit ${started && !finished ? 'rounded-t-xl' : 'rounded-xl'} bg-black/20 px-2 py-1 text-6xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg`}
+                        className={`w-fit ${started && !finished ? 'rounded-t-xl' : 'rounded-xl'} bg-black/10 px-2 py-1 text-6xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg`}
                     >
                         World Atlas
                     </h1>
