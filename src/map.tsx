@@ -1,4 +1,4 @@
-import { drag, geoOrthographic, geoPath, select } from 'd3'
+import { drag, geoOrthographic, GeoPath, geoPath, GeoPermissibleObjects, GeoProjection, select } from 'd3'
 import { Feature, GeoJsonProperties } from 'geojson'
 import { useEffect, useRef, useState } from 'react'
 import { feature } from 'topojson-client'
@@ -12,6 +12,8 @@ const INSET = 24
 
 export default function Map() {
     const ref = useRef<SVGSVGElement>(null)
+    const projectionRef = useRef<GeoProjection>(null)
+    const pathRef = useRef<GeoPath<any, GeoPermissibleObjects>>(null)
     const [features, setFeatures] = useState<Feature[]>()
     const { updateCountries } = useGameStore()
 
@@ -26,10 +28,10 @@ export default function Map() {
     }, [])
 
     useEffect(() => {
-        if (!ref.current || !features) {
+        if (!features) {
             return
         }
-        const projection = geoOrthographic().fitExtent(
+        projectionRef.current = geoOrthographic().fitExtent(
             [
                 [INSET, INSET],
                 [WIDTH - INSET, HEIGHT - INSET]
