@@ -42,9 +42,22 @@ export default function App() {
                 </div>
             </div>
             {started && !finished && current && (
-                <div className="pointer-events-none absolute bottom-0 flex w-full justify-center pb-6">
+                <div className="pointer-events-none absolute bottom-0 flex w-full justify-center pb-2">
                     <div className="rounded-lg bg-black/20 px-2 pb-1 text-2xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg">
                         Find: <span className="text-4xl underline">{current}</span>
+                    </div>
+                </div>
+            )}
+            {finished && (
+                <div className="fixed inset-0 flex items-center justify-center bg-zinc-950/80 text-white">
+                    <div className="flex flex-col items-start gap-4 rounded-lg p-6">
+                        <h2 className="f text-4xl font-semibold">Results:</h2>
+                        <div className="text-6xl font-bold">
+                            Found: {Object.values(answered).filter((value) => value === 'correct').length}/{countries.length}, Time: <ElapsedTime />
+                        </div>
+                        <button className="hover:cursor-pointer hover:underline" onClick={resetGame}>
+                            Reset
+                        </button>
                     </div>
                 </div>
             )}
