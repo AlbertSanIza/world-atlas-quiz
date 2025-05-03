@@ -4,7 +4,7 @@
 
 https://albertsaniza.github.io/world-atlas-quiz
 
-![World Atlas Quiz](https://github.com/user-attachments/assets/d05439cc-0078-451a-8b36-614e045ee504)
+![World Atlas Quiz](https://github.com/user-attachments/assets/15454fa2-502c-492a-ba11-c2eb1b25c2a8)
 
 ## Core Technologies
 
