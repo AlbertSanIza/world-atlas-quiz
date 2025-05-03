@@ -16,6 +16,7 @@ export default function Map() {
     const pathRef = useRef<GeoPath<any, GeoPermissibleObjects>>(null)
     const [features, setFeatures] = useState<Feature[]>()
     const { updateCountries } = useGameStore()
+    const { started, finished, answered } = useGameStore()
 
     useEffect(() => {
         fetch('https://unpkg.com/world-atlas@2.0.2/countries-110m.json')
@@ -39,6 +40,7 @@ export default function Map() {
             { type: 'Sphere' }
         )
         projectionRef.current.scale(476)
+        projectionRef.current.rotate([118.16586172308834, -34.022784765638306, 0])
         pathRef.current = geoPath(projectionRef.current)
 
         select(ref.current as Element).call(
@@ -65,6 +67,10 @@ export default function Map() {
         }
     }, [features])
 
+    useEffect(() => {
+        render()
+    }, [started, finished, answered])
+
     function render() {
         if (!ref.current || !projectionRef.current || !pathRef.current || !features) {
             return
@@ -88,9 +94,26 @@ export default function Map() {
             .data(features)
             .join('path')
             .attr('d', pathRef.current)
-            .attr('fill', '#BEE7B6')
+            .attr('fill', (data) =>
+                useGameStore.getState().answered[data.properties?.name] === 'correct'
+                    ? 'oklch(84.1% 0.238 128.85)' // Green
+                    : useGameStore.getState().answered[data.properties?.name] === 'incorrect'
+                      ? 'oklch(63.7% 0.237 25.331)' // Red
+                      : 'white'
+            )
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
+            .style('cursor', (data) =>
+                useGameStore.getState().started && !useGameStore.getState().finished && !useGameStore.getState().answered[data.properties?.name]
+                    ? 'pointer'
+                    : 'default'
+            )
+            .on('click', (_, data) => {
+                useGameStore.getState().started &&
+                    !useGameStore.getState().finished &&
+                    !useGameStore.getState().answered[data.properties?.name] &&
+                    useGameStore.getState().answer(data.properties?.name)
+            })
     }
 
     return <svg className="size-full" ref={ref} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} />
