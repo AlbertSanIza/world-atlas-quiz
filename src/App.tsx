@@ -1,6 +1,7 @@
 import ElapsedTime from './elapsed-time'
 import { useGameStore } from './lib/store'
 import Map from './map'
+import Stars from './stars'
 
 export default function App() {
     const { started, finished, current, answered, countries, startGame, resetGame } = useGameStore()
@@ -8,7 +9,7 @@ export default function App() {
 
     return (
         <main className="fixed inset-0 bg-radial from-slate-700 from-40% to-slate-950">
-            <div id="stars"></div>
+            <Stars />
             <div className="pointer-events-none absolute top-0 flex w-full justify-between px-6 pt-6">
                 <div>
                     <h1 className="w-fit rounded-xl bg-black/10 px-2 py-1 text-6xl font-semibold tracking-tight text-white backdrop-blur-sm text-shadow-lg">
