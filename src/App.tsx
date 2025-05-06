@@ -62,6 +62,14 @@ export default function App() {
                 </div>
             )}
             <Map />
+            <a
+                target="_blank"
+                data-slot="button"
+                href="https://www.buymeacoffee.com/albertsaniza"
+                className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 fixed right-6 bottom-6 inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium whitespace-nowrap text-neutral-50 shadow-xs transition-all outline-none hover:bg-neutral-900/90 focus-visible:border-neutral-950 focus-visible:ring-[3px] focus-visible:ring-neutral-950/50 disabled:pointer-events-none disabled:opacity-50 has-[>svg]:px-3 aria-invalid:border-red-500 aria-invalid:ring-red-500/20 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90 dark:focus-visible:border-neutral-300 dark:focus-visible:ring-neutral-300/50 dark:aria-invalid:border-red-900 dark:aria-invalid:ring-red-900/20 dark:dark:aria-invalid:ring-red-900/40"
+            >
+                Buy me a coffee?
+            </a>
         </main>
     )
 }
